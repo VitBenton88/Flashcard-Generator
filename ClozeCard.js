@@ -9,13 +9,11 @@ var ClozeCard = function(text, cloze) {
 
 		 console.log("Error: No cloze provided.");
 
+	}	else {
+
+			console.log(this.partial);
+
 	}
-
-	else {
-
-		console.log(this.partial);
-
-	};
 
 };
 
