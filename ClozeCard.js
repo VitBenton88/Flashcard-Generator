@@ -1,4 +1,4 @@
-module.exports = ClozeCard;
+var fs = require("fs");
 
 var ClozeCard = function(text, cloze) {
 	this.cloze = cloze;
@@ -11,9 +11,21 @@ var ClozeCard = function(text, cloze) {
 
 	}	else {
 
-			console.log(this.partial);
+			var newCard = {
+	
+			  cloze: this.cloze,
+			  partial: this.partial,	
+			  fullText : this.fullText,
 
-	}
+		    }
+
+		    console.log("New cloze card created! Review:\n" + newCard + "\n");
+
+			fs.appendFile("cloze.txt", newCard);
+
+			}
 
 };
+
+module.exports = ClozeCard;
 
