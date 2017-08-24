@@ -15,7 +15,7 @@ var ClozeCard = function(text, cloze) {
 
 		    console.log("New cloze card created! Review:\nThe full text: " + this.fullText + "\nThe cloze statement: " + this.cloze + "\nYour partial text: " + this.partial);
 
-			fs.appendFile("cloze.txt", newCard);
+			fs.appendFile("cloze.txt", newCard, (error) => { console.log(error);});
 
 			}
 

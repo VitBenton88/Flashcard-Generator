@@ -1,1 +1,1 @@
-question1;answer1;question2;answer2;answer3;question3
+Who was the first president of the United States?;George Washington;What is the capital city of California?;Sacramento;What year did the civil war end?;1865

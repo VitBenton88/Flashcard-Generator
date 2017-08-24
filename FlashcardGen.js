@@ -67,22 +67,19 @@ function basicCreation() {
 
 function clozeCreation() {
 
-  inquirer
-    .prompt(
+  inquirer.prompt([
     {
-      type: "input",
-      message: "What is the full statement to be memorized?\n e.g. 'George Washington was the first president of the United States.'\n",
-      name: "text"
+      name: "text",
+      message: "What is the full statement to be memorized?\n e.g. 'George Washington was the first president of the United States.'\n"
     },
     {
-      type: "input",
-      message: "What text should be removed from your statement? (cloze)",
-      name: "cloze"
+      name: "cloze",
+      message: "What text should be removed from your statement? (cloze)"
     }
-    )
+    ])
     .then(function(answer) {
      
-    	var newCard = ClozeCard(answer.text, answer.cloze);
+    	var card = new ClozeCard(answer.text, answer.cloze);
     	start();
 
     });
@@ -165,6 +162,66 @@ function basicStudy() {
         }
 	};
 
-};
+}
+
+function clozeStudy() {
+
+  var clozeCardsArray = '';
+  var count = 0;
+
+  fs.readFile("cloze.txt", 'utf8', function(error, data){
+
+      if (error){
+
+      return console.log(error);
+
+    }
+
+      else {
+
+      clozeCardsArray = data.split(";");
+
+      beginStudy(clozeCardsArray[count], clozeCardsArray[count+1], clozeCardsArray[count+2], count, clozeCardsArray.length);
+
+        }
+
+  })
+
+  var beginStudy = function(answer, question, fullText, count, limit) {
+
+      if (count < limit) {
+        
+        inquirer
+            .prompt(
+            {
+              type: "input",
+              message: question,
+              name: "currentQuestion"
+            }
+            )
+            .then(function(result) {
+             
+              if (result.currentQuestion === answer){
+                console.log('Correct!');
+                console.log(fullText);
+                count += 3;
+                beginStudy(clozeCardsArray[count], clozeCardsArray[count+1], clozeCardsArray[count+2], count, clozeCardsArray.length);
+              }
+
+              else {
+                console.log('WRONG!');
+                beginStudy(clozeCardsArray[count], clozeCardsArray[count+1], clozeCardsArray[count+2], count, clozeCardsArray.length);
+              }
+
+            });
+
+      } else {
+          console.log("You have gotten through all of your cloze cards!");
+          start();
+
+        }
+  };
+
+}
 
 start()
