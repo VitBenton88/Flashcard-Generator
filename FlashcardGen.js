@@ -132,6 +132,8 @@ function basicStudy() {
 	})
 
 	var beginStudy = function(question, answer, count, limit) {
+
+      if (count < limit) {
 		    
 		    inquirer
 		        .prompt(
@@ -146,12 +148,7 @@ function basicStudy() {
 		          if (result.currentQuestion === answer){
 		            console.log('Correct!');
 		            count += 2;
-
-					if (count < limit) {
-		            	beginStudy(basicCardsArray[count], basicCardsArray[count + 1], count, basicCardsArray.length);
-		            } else {
-		            	start();
-		            };
+                beginStudy(basicCardsArray[count], basicCardsArray[count + 1], count, basicCardsArray.length);
 		          }
 
 		          else {
@@ -160,10 +157,14 @@ function basicStudy() {
 		          }
 
 		        });
-		    
-		  }
+
+      } else {
+          console.log("You have gotten through all of your basic cards!");
+          start();
+
+        }
 	};
 
+};
 
-
-start();
+start()
